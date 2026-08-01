@@ -13,7 +13,10 @@ class NotificationBridge {
 
   Future<List<PendingCandidate>> drainCandidates() async {
     final rows =
-        await _channel.invokeListMethod<Map<Object?, Object?>>('drainCandidates') ?? [];
+        await _channel.invokeListMethod<Map<Object?, Object?>>(
+          'drainCandidates',
+        ) ??
+        [];
     return rows
         .map((row) => PendingCandidate.fromJson(Map<String, dynamic>.from(row)))
         .toList();
