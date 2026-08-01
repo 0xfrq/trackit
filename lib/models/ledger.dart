@@ -3,7 +3,9 @@ import 'dart:convert';
 const idrCurrency = 'IDR';
 
 enum AccountKind { cash, digital }
+
 enum EntryKind { expense, income, adjustment }
+
 enum EntrySource { manual, notification }
 
 class Account {
@@ -134,12 +136,14 @@ class Ledger {
 
   int balanceFor(String accountId) {
     final account = accounts.firstWhere((item) => item.id == accountId);
-    return account.openingMinor + entries
-        .where((entry) => entry.accountId == accountId)
-        .fold(0, (sum, entry) => sum + entry.signedAmount);
+    return account.openingMinor +
+        entries
+            .where((entry) => entry.accountId == accountId)
+            .fold(0, (sum, entry) => sum + entry.signedAmount);
   }
 
-  bool containsExternalId(String externalId) => entries.any((entry) => entry.externalId == externalId);
+  bool containsExternalId(String externalId) =>
+      entries.any((entry) => entry.externalId == externalId);
 
   bool addEntry(LedgerEntry entry) {
     if (containsExternalId(entry.externalId ?? '')) return false;
@@ -172,6 +176,8 @@ String parseIdrAmount(String input) {
   final digits = input.replaceAll(RegExp(r'[^0-9]'), '');
   if (digits.isEmpty) throw const FormatException('Enter an amount in rupiah.');
   final amount = int.tryParse(digits);
-  if (amount == null || amount <= 0) throw const FormatException('Amount must be positive.');
+  if (amount == null || amount <= 0) {
+    throw const FormatException('Amount must be positive.');
+  }
   return amount.toString();
 }
