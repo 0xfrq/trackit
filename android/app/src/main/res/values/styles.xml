@@ -1,0 +1,3 @@
+<resources>
+    <style name="LaunchTheme" parent="android:style/Theme.Material.Light.NoActionBar"><item name="android:windowLightStatusBar">true</item><item name="android:fontFamily">sans</item><item name="android:colorAccent">#E96942</item></style>
+</resources>

@@ -1,0 +1,28 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub-cache/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub/
+
+# Android/local tooling
+android/.gradle/
+android/local.properties
+*.iml
+.idea/
+
+# Secrets and local downloads
+.env*
+*.pat
+*.token
+*.apk
+trackit-*.zip
+
+# Local emulator state
+.emulator/
+
+# OS
+.DS_Store
+Thumbs.db
