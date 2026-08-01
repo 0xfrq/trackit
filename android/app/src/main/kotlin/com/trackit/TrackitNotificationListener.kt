@@ -8,7 +8,6 @@ import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.regex.Pattern
 
 /** MVP parser: package IDs and formats are placeholders until real notification examples are supplied. */
 class TrackitNotificationListener : NotificationListenerService() {
@@ -29,8 +28,8 @@ class TrackitNotificationListener : NotificationListenerService() {
     companion object {
         // Replace placeholders with the exact package IDs used on the test device.
         val SUPPORTED_PACKAGES = setOf("com.example.qris", "com.example.bank")
-        private val AMOUNT = Pattern.compile("(?:Rp\\.?\\s*)([0-9][0-9.,]*)", Pattern.CASE_INSENSITIVE)
-        private val MERCHANT = Pattern.compile("(?:at|di|ke)\\s+([A-Za-z0-9 ._-]{2,50})", Pattern.CASE_INSENSITIVE)
+        private val AMOUNT = Regex("(?:Rp\\.?\\s*)([0-9][0-9.,]*)", RegexOption.IGNORE_CASE)
+        private val MERCHANT = Regex("(?:at|di|ke)\\s+([A-Za-z0-9 ._-]{2,50})", RegexOption.IGNORE_CASE)
 
         fun isEnabled(context: Context): Boolean {
             val expected = ComponentName(context, TrackitNotificationListener::class.java)
