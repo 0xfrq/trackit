@@ -22,18 +22,18 @@ class Account {
   final int openingMinor;
 
   Map<String, Object> toJson() => {
-    'id': id,
-    'kind': kind.name,
-    'name': name,
-    'openingMinor': openingMinor,
-  };
+        'id': id,
+        'kind': kind.name,
+        'name': name,
+        'openingMinor': openingMinor,
+      };
 
   factory Account.fromJson(Map<String, dynamic> json) => Account(
-    id: json['id'] as String,
-    kind: AccountKind.values.byName(json['kind'] as String),
-    name: json['name'] as String,
-    openingMinor: json['openingMinor'] as int,
-  );
+        id: json['id'] as String,
+        kind: AccountKind.values.byName(json['kind'] as String),
+        name: json['name'] as String,
+        openingMinor: json['openingMinor'] as int,
+      );
 }
 
 class LedgerEntry {
@@ -63,28 +63,28 @@ class LedgerEntry {
       kind == EntryKind.expense ? -amountMinor : amountMinor;
 
   Map<String, Object?> toJson() => {
-    'id': id,
-    'accountId': accountId,
-    'kind': kind.name,
-    'amountMinor': amountMinor,
-    'occurredAt': occurredAt.toUtc().toIso8601String(),
-    'merchant': merchant,
-    'note': note,
-    'source': source.name,
-    'externalId': externalId,
-  };
+        'id': id,
+        'accountId': accountId,
+        'kind': kind.name,
+        'amountMinor': amountMinor,
+        'occurredAt': occurredAt.toUtc().toIso8601String(),
+        'merchant': merchant,
+        'note': note,
+        'source': source.name,
+        'externalId': externalId,
+      };
 
   factory LedgerEntry.fromJson(Map<String, dynamic> json) => LedgerEntry(
-    id: json['id'] as String,
-    accountId: json['accountId'] as String,
-    kind: EntryKind.values.byName(json['kind'] as String),
-    amountMinor: json['amountMinor'] as int,
-    occurredAt: DateTime.parse(json['occurredAt'] as String),
-    merchant: json['merchant'] as String,
-    note: json['note'] as String,
-    source: EntrySource.values.byName(json['source'] as String),
-    externalId: json['externalId'] as String?,
-  );
+        id: json['id'] as String,
+        accountId: json['accountId'] as String,
+        kind: EntryKind.values.byName(json['kind'] as String),
+        amountMinor: json['amountMinor'] as int,
+        occurredAt: DateTime.parse(json['occurredAt'] as String),
+        merchant: json['merchant'] as String,
+        note: json['note'] as String,
+        source: EntrySource.values.byName(json['source'] as String),
+        externalId: json['externalId'] as String?,
+      );
 }
 
 class PendingCandidate {
@@ -107,14 +107,14 @@ class PendingCandidate {
   final double confidence;
 
   Map<String, Object> toJson() => {
-    'externalId': externalId,
-    'accountId': accountId,
-    'amountMinor': amountMinor,
-    'merchant': merchant,
-    'occurredAt': occurredAt.toUtc().toIso8601String(),
-    'packageName': packageName,
-    'confidence': confidence,
-  };
+        'externalId': externalId,
+        'accountId': accountId,
+        'amountMinor': amountMinor,
+        'merchant': merchant,
+        'occurredAt': occurredAt.toUtc().toIso8601String(),
+        'packageName': packageName,
+        'confidence': confidence,
+      };
 
   factory PendingCandidate.fromJson(Map<String, dynamic> json) =>
       PendingCandidate(
@@ -130,8 +130,8 @@ class PendingCandidate {
 
 class Ledger {
   Ledger({List<Account>? accounts, List<LedgerEntry>? entries})
-    : accounts = accounts ?? <Account>[],
-      entries = entries ?? <LedgerEntry>[];
+      : accounts = accounts ?? <Account>[],
+        entries = entries ?? <LedgerEntry>[];
 
   List<Account> accounts;
   List<LedgerEntry> entries;
@@ -154,10 +154,10 @@ class Ledger {
   }
 
   Map<String, Object> toJson() => {
-    'version': 1,
-    'accounts': accounts.map((item) => item.toJson()).toList(),
-    'entries': entries.map((item) => item.toJson()).toList(),
-  };
+        'version': 1,
+        'accounts': accounts.map((item) => item.toJson()).toList(),
+        'entries': entries.map((item) => item.toJson()).toList(),
+      };
 
   String encode() => jsonEncode(toJson());
 

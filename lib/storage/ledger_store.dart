@@ -4,7 +4,7 @@ import '../models/ledger.dart';
 
 class LedgerStore {
   LedgerStore({FlutterSecureStorage? storage})
-    : _storage = storage ?? const FlutterSecureStorage();
+      : _storage = storage ?? const FlutterSecureStorage();
 
   static const _key = 'trackit.ledger.v1';
   final FlutterSecureStorage _storage;

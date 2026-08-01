@@ -11,18 +11,18 @@ class TrackitApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Trackit',
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color(0xffe96942),
-        brightness: Brightness.light,
-      ),
-      scaffoldBackgroundColor: const Color(0xfffffbf5),
-      useMaterial3: true,
-    ),
-    home: const TrackitHome(),
-  );
+        title: 'Trackit',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xffe96942),
+            brightness: Brightness.light,
+          ),
+          scaffoldBackgroundColor: const Color(0xfffffbf5),
+          useMaterial3: true,
+        ),
+        home: const TrackitHome(),
+      );
 }
 
 class TrackitHome extends StatefulWidget {
@@ -238,121 +238,126 @@ class _TrackitHomeState extends State<TrackitHome> with WidgetsBindingObserver {
   }
 
   Widget _setupCard() => Card(
-    child: Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(Icons.account_balance_wallet_outlined, size: 32),
-          const SizedBox(height: 12),
-          Text(
-            'Start with two balances',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 6),
-          const Text(
-            'Keep cash and digital money separate, then see the total at a glance.',
-          ),
-          const SizedBox(height: 16),
-          OutlinedButton(onPressed: _setup, child: const Text('Set balances')),
-        ],
-      ),
-    ),
-  );
-
-  Widget _balanceCards() => Column(
-    children: [
-      Card(
-        color: Theme.of(context).colorScheme.primaryContainer,
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Total balance'),
+              const Icon(Icons.account_balance_wallet_outlined, size: 32),
+              const SizedBox(height: 12),
               Text(
-                _money(
-                  _ledger.accounts.fold(
-                    0,
-                    (sum, account) => sum + _ledger.balanceFor(account.id),
-                  ),
-                ),
+                'Start with two balances',
                 style: Theme.of(
                   context,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 6),
+              const Text(
+                'Keep cash and digital money separate, then see the total at a glance.',
+              ),
+              const SizedBox(height: 16),
+              OutlinedButton(
+                  onPressed: _setup, child: const Text('Set balances')),
             ],
           ),
         ),
-      ),
-      const SizedBox(height: 8),
-      Row(
-        children: _ledger.accounts
-            .map(
-              (account) => Expanded(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(
-                          account.kind == AccountKind.cash
-                              ? Icons.payments_outlined
-                              : Icons.phone_android_outlined,
+      );
+
+  Widget _balanceCards() => Column(
+        children: [
+          Card(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Total balance'),
+                  Text(
+                    _money(
+                      _ledger.accounts.fold(
+                        0,
+                        (sum, account) => sum + _ledger.balanceFor(account.id),
+                      ),
+                    ),
+                    style: Theme.of(
+                      context,
+                    )
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: _ledger.accounts
+                .map(
+                  (account) => Expanded(
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              account.kind == AccountKind.cash
+                                  ? Icons.payments_outlined
+                                  : Icons.phone_android_outlined,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(account.name),
+                            const SizedBox(height: 4),
+                            Text(
+                              _money(_ledger.balanceFor(account.id)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        Text(account.name),
-                        const SizedBox(height: 4),
-                        Text(
-                          _money(_ledger.balanceFor(account.id)),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            )
-            .toList(),
-      ),
-    ],
-  );
+                )
+                .toList(),
+          ),
+        ],
+      );
 
   Widget _accessCard() => Card(
-    child: ListTile(
-      leading: Icon(
-        _accessEnabled
-            ? Icons.notifications_active_outlined
-            : Icons.notifications_none_outlined,
-      ),
-      title: Text(
-        _accessEnabled
-            ? 'Payment notifications connected'
-            : 'Connect payment notifications',
-      ),
-      subtitle: const Text(
-        'Only supported payment apps are processed on this device.',
-      ),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: _bridge.openSettings,
-    ),
-  );
+        child: ListTile(
+          leading: Icon(
+            _accessEnabled
+                ? Icons.notifications_active_outlined
+                : Icons.notifications_none_outlined,
+          ),
+          title: Text(
+            _accessEnabled
+                ? 'Payment notifications connected'
+                : 'Connect payment notifications',
+          ),
+          subtitle: const Text(
+            'Only supported payment apps are processed on this device.',
+          ),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: _bridge.openSettings,
+        ),
+      );
 
   Widget _candidateTile(PendingCandidate candidate) => Card(
-    child: ListTile(
-      title: Text(candidate.merchant),
-      subtitle: Text(
-        '${_money(candidate.amountMinor)} · ${candidate.packageName}',
-      ),
-      trailing: IconButton(
-        icon: const Icon(Icons.check_circle_outline),
-        onPressed: () => _confirm(candidate),
-      ),
-    ),
-  );
+        child: ListTile(
+          title: Text(candidate.merchant),
+          subtitle: Text(
+            '${_money(candidate.amountMinor)} · ${candidate.packageName}',
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.check_circle_outline),
+            onPressed: () => _confirm(candidate),
+          ),
+        ),
+      );
 
   String _money(int value) =>
       'Rp ${value.toString().replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (_) => '.')}';

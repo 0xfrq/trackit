@@ -12,8 +12,7 @@ class NotificationBridge {
       _channel.invokeMethod<void>('openNotificationSettings');
 
   Future<List<PendingCandidate>> drainCandidates() async {
-    final rows =
-        await _channel.invokeListMethod<Map<Object?, Object?>>(
+    final rows = await _channel.invokeListMethod<Map<Object?, Object?>>(
           'drainCandidates',
         ) ??
         [];
